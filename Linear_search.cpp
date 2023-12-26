@@ -1,4 +1,3 @@
-// This file for running the code so that there will be only one file which will be compiled
 #include "header.h"
 
 bool linear_search(int arr[], int size, int number){
