@@ -19,7 +19,7 @@ class st{
     }
 
     void pop(){
-        if(top>=0){
+        if(top>0){
             top--;
         } else {
             cout << "Stack is empty!" << endl;
@@ -27,7 +27,7 @@ class st{
     }
 
     int top_element(){
-        if(top>=0){
+        if(top>0){
             return arr[top-1];
         } else {
             cout << "Stack is empty!" << endl;
