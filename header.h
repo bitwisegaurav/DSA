@@ -17,3 +17,9 @@ void display_array(int arr[], int size){
     }
     cout << endl;
 }
+
+void swap_numbers(int *a, int *b){
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
