@@ -1,11 +1,5 @@
 #include "header.h"
 
-void swap_numbers(int *a, int *b){
-    int temp = *a;
-    *a = *b;
-    *b = temp;
-}
-
 void selection_sort(int *arr, int size) {
     for (int i = 0; i < size; i++){
         for(int j = i + 1; j < size; j++) {
