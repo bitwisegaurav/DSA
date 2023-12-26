@@ -28,6 +28,15 @@ class qu{
         }
     }
 
+    int start_element(){
+        if(end>=0){
+            return arr[0];
+        } else {
+            cout << "Queue is empty!" << endl;
+            return -1;
+        }
+    }
+
     int end_element(){
         if(end>=0){
             return arr[end];
@@ -51,7 +60,7 @@ int main(){
     qu q;
     do{
         cout << "Enter number for following operations : " << endl;
-        cout << "1. Push \n2. Pop \n3. end \n4. Display Queue \n5. Exit\n";
+        cout << "1. Push \n2. Pop \n3. start \n4. end \n5. Display Queue \n6. Exit\n";
         cin >> n;
         switch(n){
             case 1: 
@@ -79,7 +88,7 @@ int main(){
             default :
                 cout << "Enter a valid number" << endl;
         }
-    } while(n!=5);
+    } while(n!=6);
 
     return 0;
 }
