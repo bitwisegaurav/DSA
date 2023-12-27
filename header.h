@@ -11,8 +11,8 @@
 #include <math.h>
 using namespace std;
 
-void display_array(int arr[], int size){
-    for(int i=0; i<size; i++){
+void display_array(int arr[], int size, int start = 0){
+    for(int i=start; i<size; i++){
         cout << arr[i] << ", ";
     }
     cout << endl;
