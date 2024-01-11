@@ -1,6 +1,7 @@
 // This file is for adding/including all the important header files and functions so that we don't have to repeat it in every file
 
 #include <iostream>
+#include <iomanip>
 #include <map>
 #include <unordered_map>
 #include <stack>
