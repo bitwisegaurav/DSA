@@ -61,7 +61,7 @@ int main(){
     
     int n = 0, size = 0;
     bool directed = false;
-    char c = NULL;
+    char c = '\0';
 
     cout << "Enter number of nodes: ";
     cin >> size;
