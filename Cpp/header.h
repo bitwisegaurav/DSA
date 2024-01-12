@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <algorithm>
 #include <map>
 #include <unordered_map>
 #include <stack>
