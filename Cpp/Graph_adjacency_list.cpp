@@ -17,6 +17,9 @@ class graph {
     void search_depth(int, unordered_map<int, bool>&); // for traversing recursively in dfs
     int nodes_count();
     int edges_count();
+    bool has_node(int);
+    int degree_of_node(int);
+    void clear();
 };
 
 graph::graph(bool directed = false) {
@@ -155,6 +158,26 @@ void graph::search_depth(int nodeValue, unordered_map<int, bool> &visited) {
     }
 }
 
+// clears the data of graph
+void graph::clear() {
+    // clear the adjacency list
+    adj.clear();
+
+    // reset the counts
+    nodes = edges = 0;
+    directed = false;
+}
+
+// checks if node is present in the graph or not
+bool graph::has_node(int nodeValue) {
+    return adj.count(nodeValue) > 0;
+}
+
+// returns the degree of a node
+int graph::degree_of_node(int nodeValue) {
+    return adj.at(nodeValue).size();
+}
+
 int graph::nodes_count() { return this->nodes; } // returns the no. of nodes in the graph
 int graph::edges_count() { return this->edges; } // return the no. of edges in the graph
 
@@ -179,7 +202,10 @@ int main(){
         cout << left << setw(30) << "3. Number of nodes";
         cout << left << setw(30) << "4. Number of edges" << endl;
         cout << left << setw(30) << "5. Display Graph";
-        cout << left << setw(30) << "6. Exit" << endl;
+        cout << left << setw(30) << "6. Check if Node Exists" << endl;
+        cout << left << setw(30) << "7. Degree of a Node";
+        cout << left << setw(30) << "8. Clear Graph" << endl;
+        cout << left << setw(30) << "9. Exit" << endl;
 
         cout << endl << "Enter your choice: ";
         cin >> choice;
@@ -211,6 +237,27 @@ int main(){
                 break;
 
             case 6:
+                cout << "Enter node value: ";
+                cin >> u;
+                if (g.has_node(u-1)) {
+                    cout << "Node " << u << " exists in the graph." << endl;
+                } else {
+                    cout << "Node " << u << " does not exist in the graph." << endl;
+                }
+                break;
+
+            case 7:
+                cout << "Enter node value: ";
+                cin >> u;
+                cout << "Degree of node " << u << " = " << g.degree_of_node(u-1) << endl;
+                break;
+
+            case 8:
+                g.clear();
+                cout << "Graph cleared." << endl;
+                break;
+
+            case 9:
                 break;
             
             default:
@@ -218,7 +265,7 @@ int main(){
                 break;
         }
 
-    } while (choice!=6);
+    } while (choice!=9);
     
     return 0;
 }
