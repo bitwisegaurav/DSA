@@ -13,6 +13,8 @@ class graph {
     void display_graph();
     void print_nodes();
     void breadth_first_search();
+    void depth_first_search();
+    void search_depth(int, unordered_map<int, bool>&);
     int nodes_count();
     int edges_count();
 };
@@ -49,6 +51,8 @@ void graph::display_graph() {
     print_nodes();
     cout << endl;
     breadth_first_search();
+    cout << endl;
+    depth_first_search();
 }
 
 void graph::print_nodes() {
@@ -95,6 +99,29 @@ void graph::breadth_first_search() {
         }
     }
     cout << endl;
+}
+
+#include <unordered_map> // Include the necessary header file
+
+void graph::depth_first_search() {
+    if(adj.empty()) return;
+    unordered_map<int, bool> visited;
+
+    cout << "DFS : ";
+    for(auto nodeValues : adj){
+        if(!visited[nodeValues.first]) graph::search_depth(nodeValues.first, visited);
+    }
+    cout << endl;
+}
+
+void graph::search_depth(int nodeValue, unordered_map<int, bool> &visited) {
+    cout << nodeValue + 1 << ", ";
+
+    visited[nodeValue] = true;
+
+    for (auto node : adj[nodeValue]){
+        if(!visited[node]) search_depth(node, visited);
+    }
 }
 
 int graph::nodes_count() { return this->nodes; }
