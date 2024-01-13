@@ -101,8 +101,6 @@ void graph::breadth_first_search() {
     cout << endl;
 }
 
-#include <unordered_map> // Include the necessary header file
-
 void graph::depth_first_search() {
     if(adj.empty()) return;
     unordered_map<int, bool> visited;
