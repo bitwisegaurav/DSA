@@ -2,7 +2,7 @@
 
 class graph {
     int nodes,edges;
-    bool directed;
+    bool directed; // checks if the graph is directed or not
     unordered_map<int, list<int> > adj;
     
   public:
@@ -14,40 +14,56 @@ class graph {
     void print_nodes();
     void breadth_first_search();
     void depth_first_search();
-    void search_depth(int, unordered_map<int, bool>&);
+    void search_depth(int, unordered_map<int, bool>&); // for traversing recursively in dfs
     int nodes_count();
     int edges_count();
 };
 
 graph::graph(bool directed = false) {
+    // initializing values
     this->directed = directed;
     this->nodes = this->edges = 0;
 }
 
 void graph::add_edge(int u, int v) {
+    // if any of the node from both ones is not added already then increase the count of node
     if (adj.count(u) == 0) nodes++;
     if (adj.count(v) == 0) nodes++;
 
+    // adding edge between two nodes if not already present
     if (find(adj[u].begin(), adj[u].end(), v) == adj[u].end()){
         edges++;
         adj[u].push_back(v);
     }
+
+    // adding edge from opposite direction also if the graph is not directed graph and the edge is not present already
     if(!directed && find(adj[v].begin(), adj[v].end(), u) == adj[v].end()) {
         adj[v].push_back(u);
     }
 }
 
 void graph::remove_edge(int u, int v) {
+    // removing the edge from u to v if there is one present
     if(find(adj[u].begin(), adj[u].end(), v) != adj[u].end()) {
         adj[u].remove(v);
         edges--;
     }
+
+    // removing edge from v to u if the graph is not directed and there is one present
     if(!directed && find(adj[v].begin(), adj[v].end(), u) != adj[v].end()) {
         adj[v].remove(u);
     }
 }
 
+// This function prints the graph with all the traversals
 void graph::display_graph() {
+    // check if the graph is empty or not
+    if(adj.empty()) {
+        cout << "Graph is empty" << endl;
+        return;
+    }
+
+    // printing values
     print_nodes();
     cout << endl;
     breadth_first_search();
@@ -56,15 +72,15 @@ void graph::display_graph() {
 }
 
 void graph::print_nodes() {
-    if(adj.empty()) {
-        cout << "Graph is empty";
-        return;
-    }
+    // check if graph has nodes or not
+    if(adj.empty()) return;
 
+    // creating with the graph data for sorting
     map<int, list<int> > adj(this->adj.begin(), this->adj.end());
 
     cout << "Graph : " << endl << endl;
 
+    // printing the graph
     for (auto node : adj){
         cout << node.first + 1 << " -> ";
         for (auto link : node.second)
@@ -74,24 +90,34 @@ void graph::print_nodes() {
 }
 
 void graph::breadth_first_search() {
+    // returning if there is no node present in the graph
     if(adj.empty()) return;
 
+    // declaring queue and visited map
+    /*
+    * queue helps to store all the nodes on the same level
+    * visited map helps to store the visited nodes
+    */
     queue<int> q;
     unordered_map<int, bool> visited;
 
     cout << "BFS : ";
     for(auto node : adj){
+        // skipping the node if it is already visited
         if(visited[node.first]) continue;
 
+        // putting first node so that while loop will run
         q.push(node.first);
-        visited[node.first] = true;
+        visited[node.first] = true; // marked it as visited
 
         while (!q.empty()) {
+            // fetching the nodes one by one
             int nodeValue = q.front();
             q.pop();
 
             cout << nodeValue + 1 << ", ";
 
+            // adding all the non visited nodes to the queue and marking them as visited
             for(auto listValue : adj[nodeValue]) {
                 if(!visited[listValue]){
                     visited[listValue] = true;
@@ -104,12 +130,16 @@ void graph::breadth_first_search() {
 }
 
 void graph::depth_first_search() {
+    // returing if there is no node present in graph
     if(adj.empty()) return;
+
     unordered_map<int, bool> visited;
 
     cout << "DFS : ";
+
+    // traversing all the nodes in the graph if not already visited
     for(auto nodeValues : adj){
-        if(!visited[nodeValues.first]) graph::search_depth(nodeValues.first, visited);
+        if(!visited[nodeValues.first]) search_depth(nodeValues.first, visited);
     }
     cout << endl;
 }
@@ -119,18 +149,19 @@ void graph::search_depth(int nodeValue, unordered_map<int, bool> &visited) {
 
     visited[nodeValue] = true;
 
+    // traversing all the nodes connected to the current node
     for (auto node : adj[nodeValue]){
         if(!visited[node]) search_depth(node, visited);
     }
 }
 
-int graph::nodes_count() { return this->nodes; }
-int graph::edges_count() { return this->edges; }
+int graph::nodes_count() { return this->nodes; } // returns the no. of nodes in the graph
+int graph::edges_count() { return this->edges; } // return the no. of edges in the graph
 
 int main(){
-    
-    int n = 0;
-    int u, v;
+
+    int choice = 0;
+    int u, v; // for the nodes values
     bool directed = false;
     char c = '\0';
 
@@ -151,10 +182,10 @@ int main(){
         cout << left << setw(30) << "6. Exit" << endl;
 
         cout << endl << "Enter your choice: ";
-        cin >> n;
+        cin >> choice;
         cout << endl;
 
-        switch (n){
+        switch (choice){
             case 1:
                 cout << "Enter edge (u v): ";
                 cin >> u >> v;
@@ -187,8 +218,7 @@ int main(){
                 break;
         }
 
-    } while (n!=6);
+    } while (choice!=6);
     
-
     return 0;
 }
