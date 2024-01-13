@@ -84,6 +84,7 @@ void graph::breadth_first_search() {
         if(visited[node.first]) continue;
 
         q.push(node.first);
+        visited[node.first] = true;
 
         while (!q.empty()) {
             int nodeValue = q.front();
@@ -91,10 +92,11 @@ void graph::breadth_first_search() {
 
             cout << nodeValue + 1 << ", ";
 
-            visited[nodeValue] = true;
-
             for(auto listValue : adj[nodeValue]) {
-                if(!visited[listValue]) q.push(listValue);
+                if(!visited[listValue]){
+                    visited[listValue] = true;
+                    q.push(listValue);
+                }
             }
         }
     }
