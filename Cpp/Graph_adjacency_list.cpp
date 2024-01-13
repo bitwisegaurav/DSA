@@ -11,6 +11,8 @@ class graph {
     void add_edge(int, int);
     void remove_edge(int, int);
     void display_graph();
+    void print_nodes();
+    void breadth_first_search();
     int nodes_count();
     int edges_count();
 };
@@ -44,6 +46,17 @@ void graph::remove_edge(int u, int v) {
 }
 
 void graph::display_graph() {
+    print_nodes();
+    cout << endl;
+    breadth_first_search();
+}
+
+void graph::print_nodes() {
+    if(adj.empty()) {
+        cout << "Graph is empty";
+        return;
+    }
+
     map<int, list<int> > adj(this->adj.begin(), this->adj.end());
 
     cout << "Graph : " << endl << endl;
@@ -54,6 +67,34 @@ void graph::display_graph() {
             cout << link + 1 << ", ";
         cout << endl;
     }
+}
+
+void graph::breadth_first_search() {
+    if(adj.empty()) return;
+
+    queue<int> q;
+    unordered_map<int, bool> visited;
+
+    cout << "BFS : ";
+    for(auto node : adj){
+        if(visited[node.first]) continue;
+
+        q.push(node.first);
+
+        while (!q.empty()) {
+            int nodeValue = q.front();
+            q.pop();
+
+            cout << nodeValue + 1 << ", ";
+
+            visited[nodeValue] = true;
+
+            for(auto listValue : adj[nodeValue]) {
+                if(!visited[listValue]) q.push(listValue);
+            }
+        }
+    }
+    cout << endl;
 }
 
 int graph::nodes_count() { return this->nodes; }
