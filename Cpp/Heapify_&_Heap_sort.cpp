@@ -23,13 +23,30 @@ void heapify(int arr[], int size){
     for (int i = size/2 - 1; i >= 0; i--) { heapifyTheIndex(arr, size, i); }
 }
 
+void heap_sort(int arr[], int size) {
+    int index = size;
+
+    while(index > 0) {
+        // swap the largest element with the last element
+        swap(arr[0], arr[index-1]);
+        // reduce the size of the heap by one
+        index--;
+        // heapify the new heap
+        heapifyTheIndex(arr, index, 0);
+    }
+}
 
 int main() {
-    int arr[] = {1,2,3,4,5};
+    int arr[] = {12,45,43,67,3};
     int size = sizeof(arr)/sizeof(arr[0]);
 
+    cout << "Original array : ";
     display_array(arr, size);
+    cout << "Heapified array : ";
     heapify(arr, size);
+    display_array(arr, size);
+    cout << "Sorted array : ";
+    heap_sort(arr, size);
     display_array(arr, size);
 
     return 0;
