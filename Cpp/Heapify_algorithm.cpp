@@ -2,8 +2,8 @@
 
 void heapifyTheIndex(int arr[], int size, int index) {
     int largest = index;
-    int left = 2*index; // left part of the node
-    int right = 2*index + 1; // right part of the node
+    int left = 2*index + 1; // left part of the node
+    int right = 2*index + 2; // right part of the node
 
     // check the left part is larger or not
     if(left < size && arr[left] > arr[largest]) { largest = left; }
@@ -19,19 +19,8 @@ void heapifyTheIndex(int arr[], int size, int index) {
 }
 
 void heapify(int arr[], int size){
-    // create a new array to make heap from it
-    int* newArr = new int[size+1];
-    
-    newArr[0] = -1;
-
-    // copy the data into new array
-    for (int i = 1; i <= size; i++) { newArr[i] = arr[i-1]; }
-
     // heapify the new array
-    for (int i = size/2; i > 0; i--) { heapifyTheIndex(newArr, size+1, i); }
-
-    // copy back the heapified array to original array
-    for (int i = 1; i <= size; i++) { arr[i-1] = newArr[i]; }
+    for (int i = size/2 - 1; i >= 0; i--) { heapifyTheIndex(arr, size, i); }
 }
 
 
