@@ -105,7 +105,7 @@ Divides the array into two halves, sorts them separately and then merges them.
 
 ### Quick Sort
 
-Picks a pivot element, partitions the other elements into two sub-arrays, according to whether they are less than or greater than the pivot.
+Quick Sort is a divide-and-conquer algorithm that selects a pivot element and reorders the other elements into two sub-arrays, based on whether they are less than or greater than the pivot. This process is recursively applied to the sub-arrays, leading to a sorted array
 
 ### Heap Sort
 
